@@ -8,6 +8,13 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
+//Route IMPORTS 
+const momoRoutes = require('./routes/momoRoutes')
+
+
+//Route inits
+app.use('/momo', momoRoutes)
+
 
 //Middleware imports 
 const errorHandler = require('./middlewares/errorMiddleware')
