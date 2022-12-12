@@ -8,6 +8,17 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
+
+//View engine 
+const {engine} = require('express-handlebars')
+app.engine('.hbs', engine({extname : '.hbs'}));
+app.set('view engine', '.hbs');
+app.set('views', './views');
+app.get('/', (req, res) => {
+    res.render('home');
+});
+
+
 //Route IMPORTS 
 const momoRoutes = require('./routes/momoRoutes')
 

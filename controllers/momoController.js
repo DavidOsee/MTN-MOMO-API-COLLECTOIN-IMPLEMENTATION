@@ -6,14 +6,14 @@ const asyncHandler = require('express-async-handler')
 //@ Private access 
 const getMomo = asyncHandler( async(req, res)=>{
 	//
-	res.json({msg: 'Get'})
+	res.json({msg : "Get"})
 })
 
 //POST @ /momo
 //@ Private access 
 const postMomo = asyncHandler( async(req, res)=>{
 	//
-	res.json({msg: 'Post'})
+	res.json(req.body)
 })
 
 //PUT @ /momo
