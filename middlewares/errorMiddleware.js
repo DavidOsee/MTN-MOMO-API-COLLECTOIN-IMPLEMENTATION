@@ -9,7 +9,7 @@ const errorHandler = (err, req, res, next)=>{
 	//Return err json 
 	res.json({
 		message : err.message,
-		stack : (process.env.NODE_ENV === development)? err.stack : null
+		stack : (process.env.NODE_ENV === 'development')? err.stack : null
 	})
 }
 

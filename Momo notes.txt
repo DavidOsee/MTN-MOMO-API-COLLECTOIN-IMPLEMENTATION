@@ -1,0 +1,9 @@
+# REQUESTS PER TRANSACTION
+
+#
+npx momo-sandbox --host localhost --primary-key f62ffb63357d48e4a0056c36063a8c53
+
+# Refer to npm momo doc 
+
+"userSecret": "445477d7de844d2c816b2ede39da32b7",
+"userId": "69eba058-e091-4d86-8f1d-22f97f4050ee" 

@@ -1,13 +1,13 @@
 //
 const express = require('express')
 const router = express.Router()
-const {getMomo, postMomo, putMomo, DeleteMomo} = require('../controllers/momoController')
+const {home, pay, success, failure} = require('../controllers/momoController')
 //
-router.
-get('/', getMomo)
-.post('/', postMomo)
-.put('/', putMomo)
-.delete('/', DeleteMomo)
+router
+.get('/', home)
+.post('/pay', pay)
+.get('/success/:data', success)
+.get('/failure', failure)
 
 //Export to server 
 module.exports = router; 
