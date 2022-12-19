@@ -3,7 +3,15 @@
 #
 npx momo-sandbox --host localhost --primary-key f62ffb63357d48e4a0056c36063a8c53
 
-# Refer to npm momo doc 
-
 "userSecret": "445477d7de844d2c816b2ede39da32b7",
 "userId": "69eba058-e091-4d86-8f1d-22f97f4050ee" 
+
+#Request to pay steps 
+1-RequestToPay method >> Notify the user (USSD/App)
+2-SetTimeOut and Transaction processing page >> Get Transaction status 
+3-Check transaction status >> Provide feedback (Failure/Success)
+4-Suggest User to get Balance details
+
+#Authentication
+1- Return to 404 page if can not get route
+2- Check existance of form variables before displaying the Processing|Success/Failure page

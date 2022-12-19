@@ -5,7 +5,7 @@ const momo = require("mtn-momo");
 const url = require('url')
 const Cryptr = require('cryptr');
 
-//Cryptr config
+//Cryptr config [For crypting URL's params]
 const cryptr = new Cryptr(process.env.CRYPTR_SECRET_KEY);
 
 
@@ -21,13 +21,11 @@ const collections = Collections({
 })
 
 
-//REQUEST TO PAY @ /HOME
+//REQUEST TO PAY @ /
 //@ Public access 
 
-const home = asyncHandler( async(req, res)=>
+const Home = asyncHandler( async(req, res)=>
 {
-  //Qwery params
-
 	//
   res.render('home')
   
@@ -35,9 +33,20 @@ const home = asyncHandler( async(req, res)=>
 
 
 //REQUEST TO PAY @ /pay
+//@ Public access 
+
+const ReqToPay = asyncHandler( async(req, res)=>
+{
+	//
+  res.render('reqToPay')
+  
+})
+
+
+//REQUEST TO PAY @ /pay
 //@ Private access 
 
-const pay = asyncHandler( async(req, res)=>
+const Pay = asyncHandler( async(req, res)=>
 {
   //Request body variables 
   const { fname, lname, email, address, country, city, number, totalAmount} = req.body; 
@@ -72,7 +81,9 @@ const pay = asyncHandler( async(req, res)=>
     //Encrypt OBJ
     encrypted_form_data = cryptr.encrypt(requestToPay_form_data)
 
-    //Redirect with the compulsory url param
+    //Redirect to process first with the mandatory url param
+    //res.redirect(`/process/${encrypted_form_data}`)
+
     res.redirect(`/success/${encrypted_form_data}`)
   })
   .catch(error => {
@@ -82,28 +93,40 @@ const pay = asyncHandler( async(req, res)=>
 })
 
 
-//PAYMENT STATUS /momo/success
+//PAYMENT STATUS @ /process
 //@ Private access 
 
-const success = asyncHandler( async(req, res)=>
+const Process = asyncHandler( async(req, res)=>
 {
+  res.render('process')
+  
+	//Redirect to Success/Failure depending on the T. status result 
+  //res.redirect(`/sucess/${encrypted_form_data}`)
+})
+
+//PAYMENT STATUS /success/:data
+//@ Private access 
+
+const Success = asyncHandler( async(req, res)=>
+{
+ 
   //Decrypt url param 
   const decrypted_url_data = cryptr.decrypt(req.params.data)
   
   //JSON PARSE DATA
   const transaction_details = JSON.parse(decrypted_url_data)
 
-	//
+	//Authenticate before rendering the page
   res.render('success', {transaction_details})
   
 })
 
 
 
-//PAYMENT STATUS @ /momo/failure
+//PAYMENT STATUS @ /failure
 //@ Private access 
 
-const failure = asyncHandler( async(req, res)=>
+const Failure = asyncHandler( async(req, res)=>
 {
 	//
   
@@ -113,5 +136,5 @@ const failure = asyncHandler( async(req, res)=>
 
 //Export to momRoutes 
 module.exports = {
-	home, pay, success, failure
+	Home, ReqToPay, Pay, Process, Success, Failure
 }

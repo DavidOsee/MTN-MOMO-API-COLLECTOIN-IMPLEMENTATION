@@ -1,156 +1,47 @@
-{{!-- QR CODE PAYMENTS --}}
-{{!-- <div class="mobile-money-qr-payment"></div> --}}
+<main>
+  <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <a href="https://momodeveloper.mtn.com/"><img src="https://camo.githubusercontent.com/9e38c1988dac581cc544aeb57b5d0e51a63657ecfe80107ac3d223134d5e84ba/68747470733a2f2f6170696d676d74737431346e62786f7369317a6b667932722e626c6f622e636f72652e77696e646f77732e6e65742f636f6e74656e742f4d656469614c6962726172792f696d616765732f6d746e6d6f6d6f2e737667" alt="MTN MOMO Logo"></a>
+      <h1 class="display-6 fw-normal">MTN-MOMO-API Collections Implementation</h1>
+      <p class="lead fw-normal">Collections is a service that enables Mobile Money partners to receive payments that can be customer-initiated on USSD/App/Web or Merchant-initiated.</p>
+      <a class="btn btn-outline-secondary" href="https://github.com/DavidOsee/MTN-MOMO-API-IMPLEMENTATION.git"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+    </svg> Check the source code</a>
+    </div>
+    <div class="product-device shadow-sm d-none d-md-block"></div>
+    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+  </div>
 
-<div class="container">
- <div class="py-5 text-center">
-    
-    <h2>CHECKOUT FORM</h2>
-    <p class="lead">Sample page for testing MTN MOMO Collection Widget API</p>
- </div>
-
-
-{{!-- RIGHT INFORMATION --}}
-
- <div class="row">
-    <div class="col-md-4 order-md-2 mb-4">
-      <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-muted">Your cart</span>
-        <span class="badge badge-secondary badge-pill">3</span>
-      </h4>
-      <ul class="list-group mb-3">
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
-          <div>
-            <h6 class="my-0">First product</h6>
-            <small class="text-muted">First product description</small>
-          </div>
-          <span class="text-muted">$12</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
-          <div>
-            <h6 class="my-0">Second product</h6>
-            <small class="text-muted">Second product description</small>
-          </div>
-          <span class="text-muted">$8</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between lh-condensed">
-          <div>
-            <h6 class="my-0">Third product</h6>
-            <small class="text-muted">Third product description</small>
-          </div>
-          <span class="text-muted">$5</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between bg-light">
-          <div class="text-success">
-            <h6 class="my-0">Promo code</h6>
-          </div>
-          <span class="text-success">-$5</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <span>Total (USD)</span>
-          <strong>$<span id="totalAmount">20</span></strong>
-        </li>
-      </ul>
-
-    {{!-- <form class="card p-2">
+  <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+    <div class="text-bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 overflow-hidden">
+      <div class="my-3 py-3 text-center">
+        <h2 class="display-5">Request to Pay</h2>
+        <p class="lead">Try the request to pay method by submitting a form details.</p>
+        <a href="/pay"><button class="btn btn-info">Can't wait to try it!</button></a>
+      </div>
+      <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;">
+        <ul class="list-group d-flex">
+            <li class="list-group-item active" aria-current="true">RequestToPay will notify the User via USSD/APP </li>
+            <li class="list-group-item">Redirect User to a processing page</li>
+            <li class="list-group-item">Set a timeout awaiting for the transaction status</li>
+            <li class="list-group-item">Get the transaction status and redirect to sucess/failure page</li>
+            <li class="list-group-item">Suggest User to get their balance details</li>
+        </ul>
+      </div>
+    </div>
+    <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+      <div class="my-3 p-3">
+        <h2 class="display-5">Get your website/project showcased here</h2>
+        <p class="lead">Drop the link of your website/project making use of this API.</p>
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Promo code">
-          <div class="input-group-append">
-            <button type="submit" class="btn btn-secondary">Redeem</button>
-          </div>
+            <input type="text" aria-label="Lorem" class="form-control" placeholder="abc@123.xyz">
+            <input type="text" class="form-control" placeholder="https://myproject.com" aria-label="And there is the link" aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Done</button>
+          
         </div>
-      </form> --}}
-
-
-
-    {{!-- LEFT FORM --}}
-
+      </div>
+      {{!-- <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div> --}}
     </div>
-    <div class="col-md-8 order-md-1">
-      <h4 class="mb-3">Billing address</h4>
-      <form class="needs-validation" method="POST" action="/pay">
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="firstName">First name</label>
-            <input type="text" name="fname" class="form-control" id="firstName" placeholder="" value="" required>
-            <div class="invalid-feedback">
-              Valid first name is required.
-            </div>
-          </div>
-          <div class="col-md-6 mb-3">
-            <label for="lastName">Last name</label>
-            <input type="text" class="form-control" id="lastName" placeholder="" name="lname" value="" required>
-            <div class="invalid-feedback">
-              Valid last name is required.
-            </div>
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="email">Email <span class="text-muted">(Optional)</span></label>
-          <input type="email" name="email" class="form-control" id="email" placeholder="you@example.com">
-          <div class="invalid-feedback">
-            Please enter a valid email address for shipping updates.
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <label for="address">Address <span class="text-muted">(Optional)</label>
-          <input type="text" class="form-control" id="address" placeholder="1234 Main St" name="address">
-          <div class="invalid-feedback">
-            Please enter your shipping address.
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-5 mb-3">
-            <label for="country">Country</label>
-            <select name="country" class="form-select" aria-label=".form-select example" id="country" required>
-              <option value="">Choose...</option>
-              <option selected>Republic of Congo</option>
-            </select>
-            <div class="invalid-feedback">
-              Please select a valid country.
-            </div>
-          </div>
-          <div class="col-md-4 mb-3">
-            <label for="state">City</label>
-            <select name="city" class="form-select" aria-label=".form-select example" id="state" required>
-              <option value="">Choose...</option>
-              <option selected>Brazzaville</option>
-            </select>
-            <div class="invalid-feedback">
-              Please provide a valid city.
-            </div>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label for="number">Phone number</span></label>
-            <input type="text" name="number" class="form-control" id="zip" placeholder="" required>
-            <input type="hidden" name="totalAmount" value="" id="inputTotalAmount" />
-            <div class="invalid-feedback">
-              Phone number required.
-            </div>
-          </div>
-        </div>
-        <hr class="mb-4">
-        {{!-- <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="same-address">
-          <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
-        </div>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="save-info">
-          <label class="custom-control-label" for="save-info">Save this information for next time</label>
-        </div> --}}
-        {{!-- <hr class="mb-4"> --}}
-
-        <h4 class="mb-3">Payment</h4>
-
-        <div class="d-block my-3">
-          <div class="custom-control custom-radio">
-            <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-            <label class="custom-control-label" for="credit">MTN MOMO</label>
-          </div>
-        </div>
-        <hr class="mb-4">
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-      </form>
-    </div>
-</div><br><br>
+  </div>
+  </div>
+</main>

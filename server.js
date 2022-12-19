@@ -18,15 +18,11 @@ app.engine('.hbs', engine({extname : '.hbs'}));
 app.set('view engine', '.hbs');
 app.set('views', './views');
 
-//STATIC ROUTES 
-// app.get('/', (req, res) => {
-//     res.render('home');
-// });
-
 
 
 //Route IMPORTS 
 const momoRoutes = require('./routes/momoRoutes')
+
 
 
 //Route inits
