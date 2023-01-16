@@ -57,7 +57,7 @@ const Pay = asyncHandler( async(req, res)=>
     externalId: "123456", //Random digits 
     payer: {
       partyIdType: "MSISDN", //Mesage type notification/alert 
-      partyId: "+2425591261" //Client phone number 
+      partyId: number //Client phone number 
     },
     payerMessage: "Just a testing message",
     payeeNote: "Thanks for using our services"
@@ -80,7 +80,7 @@ const Pay = asyncHandler( async(req, res)=>
     const encrypted_form_data = cryptr.encrypt(form_data_stringified)
 
     //Store encrypted transactioId in the localStorage
-    res.cookie('transaction_data', encrypted_form_data, {expire : new Date() + 9999}) //In 2h time
+    res.cookie('transaction_data', encrypted_form_data, {expire : new Date() + 7200}) 
 
     //Redirect to /success
     res.redirect(`/process/${encrypted_form_data}`) 
@@ -100,9 +100,24 @@ const Process = asyncHandler( async(req, res)=>
 {
   //Get transaction_data obj from req
   const transaction_details = req.transaction_data
-  
-  //Render to the template with the needed obj
-  res.render('process')
+  const transactionID = transaction_details.transactionId
+
+  //Get transaction status and account balance 
+  collections.getTransaction(transactionID)
+  .then(accountBalance =>{
+    //Get account balance 
+    console.log({ accountBalance })
+
+    //Get transaction status
+    const transaction_status = accountBalance.status;
+
+     //Render to the template with the needed obj
+    res.render('process', {transactionID, transaction_status})
+  })
+  .catch(e =>{
+    console.log(e.message);
+  })
+
 })
 
 

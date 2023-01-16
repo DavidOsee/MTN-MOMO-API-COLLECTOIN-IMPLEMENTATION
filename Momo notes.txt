@@ -18,15 +18,13 @@ npx momo-sandbox --host localhost --primary-key f62ffb63357d48e4a0056c36063a8c53
 #Remainig functionalities
 0-Rename settime out to setinterval [Implement first] [UI]
 
-2-Set time interval on processing page and do the needful
 3-Work on Failing situations first, with the failure page
+
 4-Get User balance with a loading btn and result as (Balance : 12 $) [use async and await]
--Check if var get by id exist 1st to avoiid errors
 
-3-Work on sending project links to my email (Nodemailer) [Hide Email in .env]
+*3-Work on sending project links to my email (Nodemailer) [Hide Email in .env]
+
 4-Create License txt file copied from JWT github page
-
-6-French to English Page translation
 
 
 
