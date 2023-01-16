@@ -13,5 +13,50 @@ npx momo-sandbox --host localhost --primary-key f62ffb63357d48e4a0056c36063a8c53
 4-Suggest User to get Balance details
 
 #Authentication
-1- Return to 404 page if can not get route
 2- Check existance of form variables before displaying the Processing|Success/Failure page
+
+#Remainig functionalities
+0-Rename settime out to setinterval [Implement first] [UI]
+1-Protect routes with JWT and use bcrypt to secure token value
+2-Set time interval on processing page and do the needful
+3-Work on Failing situations first, with the failure page
+4-Get User balance with a loading btn and result as (Balance : 12 $) [use async and await]
+-Check if var get by id exist 1st to avoiid errors
+
+3-Work on sending project links to my email (Nodemailer) [Hide Email in .env]
+4-Create License txt file copied from JWT github page
+
+6-French to English Page translation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>
+        <a class="btn btn-info" id="balance-btn" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Show balance
+        </a>
+        {{!-- <button class="btn btn-info" type="button" disabled>
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            Loading...
+        </button> --}}
+    </p>
+    <div class="collapse" id="collapseExample">
+        <div class="card">
+            <div class="card-body">
+                <b class="text-black"><span>{{balance}}</span> $</b>
+            </div>
+        </div>
+    </div><br><br>

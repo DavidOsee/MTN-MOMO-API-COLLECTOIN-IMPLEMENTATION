@@ -31,9 +31,11 @@ app.use('/', momoRoutes)
 
 //Middleware imports 
 const errorHandler = require('./middlewares/errorMiddleware')
+const notFound = require('./middlewares/404')
 
 
 //Middleware init 
+app.use(notFound) //# 404 redirect
 app.use(errorHandler)
 
 

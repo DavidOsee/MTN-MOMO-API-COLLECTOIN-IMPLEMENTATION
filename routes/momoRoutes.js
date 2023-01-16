@@ -2,17 +2,18 @@
 const express = require('express')
 const router = express.Router()
 const {Home, ReqToPay, Pay, Process, Success, Failure} = require('../controllers/momoController')
+const protect = require('../middlewares/protect')
 //
 router
 .get('/', Home)
-.get('/success/:data', Success)
+.get('/pay', ReqToPay)
+.get('/success/:id', protect, Success)
 .get('/failure', Failure)
 .get('/processing', Process)
 
 
-//Pay routes
+//Post routes
 router
-.get('/pay', ReqToPay)
 .post('/pay', Pay)
 
 

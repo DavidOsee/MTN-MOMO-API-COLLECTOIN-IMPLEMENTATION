@@ -83,7 +83,7 @@
     height: 540px;
     background-color: #333;
     border-radius: 21px;
-    transform: rotate(30deg);
+    transform: rotate(20deg);
   }
   
   .product-device::before {

@@ -1,9 +1,25 @@
 <div class="p-5 bg-primary text-white">
     <h1>Congrats dear {{transaction_details.fname }} {{transaction_details.lname}} !</h1>
-    <h3>Your payment was successful. Find the transaction details below</h3><br />
-    <p>Transaction Id - {{transaction_details.transactionId}} </p>
-    <p>Phone number - {{transaction_details.number}} </p>
-    <p>Amount paid - {{transaction_details.totalAmount}} $</p><br />
-    <h5>Thanks for using our services</h5><br />
-    
+    <p class="fs-3">Your payment was successful. Find the transaction details below</p>
+    <p class="fs-5">Transaction Id - <b>{{transaction_details.transactionId}}</b></p>
+    <p class="fs-5">Phone number - <b>{{transaction_details.number}}</b></p>
+    <p class="fs-4">Amount paid - <b>{{transaction_details.totalAmount}} $ </b></p><br />
+    {{!-- <button class="btn btn-info">Show my balance</button><br /><br /> --}}
+    <button class="btn btn-info" id="balance-btn">
+        Show balance
+    </button>
+        {{!-- <button class="btn btn-info" type="button" disabled>
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            Loading...
+        </button> --}}
+
+    <div class="collapse d-none" id="collapseExample">
+        <div class="card">
+            <div class="card-body">
+                <b class="text-black"><span>{{balance}}</span> $</b>
+            </div>
+        </div>
+    </div><br><br>
+    <h5>Thanks for using our services</h5><br><br>
+    <p><a class="text-white" href="/">HOME&nbsp;</a>&nbsp;|&nbsp;<a class="text-white" href="/pay">&nbsp;PAY AGAIN</a></p>
 </div>

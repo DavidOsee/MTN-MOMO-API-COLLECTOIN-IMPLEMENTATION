@@ -1,9 +1,18 @@
 
-//Get Total amount from Cart details
-const totalAmount = document.getElementById('totalAmount').innerText
 
-//Get hidden input
-let inputTotalAmount = document.getElementById('inputTotalAmount')
+//Enable Bootstrap collapse in /success 
+// var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+// var collapseList = collapseElementList.map(function (collapseEl) {
+//   return new bootstrap.Collapse(collapseEl)
+// })
 
-//Set total amount to hidden input
-inputTotalAmount.value = totalAmount
+
+// //Jquery
+// $(document).ready(function() 
+// {
+//     //AJAX 
+//     //--Get balance in /success
+//     $('#balance-btn').click( function(){
+//         console.log('Hello world');
+//     }) 
+// });

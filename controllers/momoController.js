@@ -4,9 +4,10 @@ const uuid = require('uuid')
 const momo = require("mtn-momo");
 const url = require('url')
 const Cryptr = require('cryptr');
+const jwt = require('jsonwebtoken')
 
 //Cryptr config [For crypting URL's params]
-const cryptr = new Cryptr(process.env.CRYPTR_SECRET_KEY);
+//const cryptr = new Cryptr(process.env.CRYPTR_SECRET_KEY);
 
 
 //API CONFIG PARAMS
@@ -51,6 +52,20 @@ const Pay = asyncHandler( async(req, res)=>
   //Request body variables 
   const { fname, lname, email, address, country, city, number, totalAmount} = req.body; 
 
+  //Query data object 
+  const requestToPay_form_data = {
+    fname,
+    lname,
+    totalAmount,
+    number
+  }
+
+  //Pass form_data in JWT as a payload to be accessed in the success controller
+  jwt.sign({requestToPay_form_data}, process.env.SECRET_KEY, (e, token)=>{
+    res.cookie('token', token)
+  }) 
+  
+
 	//Request to pay 
   collections
   .requestToPay({
@@ -68,29 +83,15 @@ const Pay = asyncHandler( async(req, res)=>
     
     console.log({ transactionId });
 
-    //redirect to success page
-
-    //Query data object 
-    const requestToPay_form_data = JSON.stringify({
-      fname,
-      lname,
-      totalAmount,
-      transactionId,
-      number
-    })
-    //Encrypt OBJ
-    encrypted_form_data = cryptr.encrypt(requestToPay_form_data)
-
-    //Redirect to process first with the mandatory url param
-    //res.redirect(`/process/${encrypted_form_data}`)
-
-    res.redirect(`/success/${encrypted_form_data}`)
+    //Redirect to /success
+    res.redirect(`/success/${transactionId}`) 
   })
   .catch(error => {
     console.log(error);
   });
   
 })
+
 
 
 //PAYMENT STATUS @ /process
@@ -104,21 +105,29 @@ const Process = asyncHandler( async(req, res)=>
   //res.redirect(`/sucess/${encrypted_form_data}`)
 })
 
-//PAYMENT STATUS /success/:data
+
+
+
+
+
+
+//PAYMENT STATUS /success
 //@ Private access 
 
 const Success = asyncHandler( async(req, res)=>
 {
  
-  //Decrypt url param 
-  const decrypted_url_data = cryptr.decrypt(req.params.data)
-  
-  //JSON PARSE DATA
-  const transaction_details = JSON.parse(decrypted_url_data)
+  //Get token from the request object 
+  const token = req.header('auth')
+  console.log(token)
 
-	//Authenticate before rendering the page
-  res.render('success', {transaction_details})
-  
+  //Get JWT payload object
+  jwt.verify(token, process.env.SECRET_KEY, (err, decoded)=>{
+    //Authenticate before rendering the page
+   
+    //res.render('success')
+  })
+
 })
 
 
