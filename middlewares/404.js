@@ -2,7 +2,7 @@
 //
 const notFound = (req, res, next)=>{
     
-   (res.statusCode > 400 ) && res.render("404")
+   res.status(404).render("404")
 }
 
 

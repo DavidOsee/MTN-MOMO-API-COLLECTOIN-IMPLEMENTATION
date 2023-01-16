@@ -1,37 +1,30 @@
 
-const jwt = require('jsonwebtoken')
+const Cryptr = require('cryptr')
+const cryptr = new Cryptr(process.env.SECRET_KEY);
 
 //
-const verifyToken  = (req, res, next)=>
+const protect = (req, res, next)=>
 {
-    //Get auth header value 
-    const token = req.header('auth')
+    //Check for the existance of the cookie
+    if(!req.cookies.transaction_data){
 
-    console.log(token)
-  
-    //Check if bearer is undefinded 
-    if(!token){
-        //Redirect to the 404 page
-        res.sendStatus(403) //Forbidden 
+         //Redirect to 404 page
+         res.status(404)
+         res.redirect('/404') //Unknown route 
     }
+
+    //Decrypt transaction_data stored in a cookie
+    const decrypted_transaction_data = cryptr.decrypt(req.cookies.transaction_data)
+
+    //JSON parse transaction_data object and pass it into the req obj
+    if(!req.transaction_data)
+        req.transaction_data= JSON.parse(decrypted_transaction_data)
     
-    //Validate token
-    try{
-        //Get payload data from token
-        const token_payload = jwt.verify(token, process.env.SECRET_KEY)
-
-        //Set Payload data in req object
-        req.form_data = token_payload
-
-    }catch(e){
-        //Unauthorized
-        res.sendStatus(401) 
-    }
-    //Next 
+    //Next middleware
     next()
 }
 
 
 
 //Export to momoRoutes  
-module.exports = verifyToken
+module.exports = protect

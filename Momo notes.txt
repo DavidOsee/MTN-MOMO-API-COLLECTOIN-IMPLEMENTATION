@@ -17,7 +17,7 @@ npx momo-sandbox --host localhost --primary-key f62ffb63357d48e4a0056c36063a8c53
 
 #Remainig functionalities
 0-Rename settime out to setinterval [Implement first] [UI]
-1-Protect routes with JWT and use bcrypt to secure token value
+
 2-Set time interval on processing page and do the needful
 3-Work on Failing situations first, with the failure page
 4-Get User balance with a loading btn and result as (Balance : 12 $) [use async and await]

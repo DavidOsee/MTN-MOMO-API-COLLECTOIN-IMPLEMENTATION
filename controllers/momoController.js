@@ -1,13 +1,10 @@
 //
 const asyncHandler = require('express-async-handler')
 const uuid = require('uuid')
-const momo = require("mtn-momo");
+const momo = require("mtn-momo")
 const url = require('url')
-const Cryptr = require('cryptr');
-const jwt = require('jsonwebtoken')
-
-//Cryptr config [For crypting URL's params]
-//const cryptr = new Cryptr(process.env.CRYPTR_SECRET_KEY);
+const Cryptr = require('cryptr')
+const cryptr = new Cryptr(process.env.SECRET_KEY);
 
 
 //API CONFIG PARAMS
@@ -52,20 +49,6 @@ const Pay = asyncHandler( async(req, res)=>
   //Request body variables 
   const { fname, lname, email, address, country, city, number, totalAmount} = req.body; 
 
-  //Query data object 
-  const requestToPay_form_data = {
-    fname,
-    lname,
-    totalAmount,
-    number
-  }
-
-  //Pass form_data in JWT as a payload to be accessed in the success controller
-  jwt.sign({requestToPay_form_data}, process.env.SECRET_KEY, (e, token)=>{
-    res.cookie('token', token)
-  }) 
-  
-
 	//Request to pay 
   collections
   .requestToPay({
@@ -83,8 +66,24 @@ const Pay = asyncHandler( async(req, res)=>
     
     console.log({ transactionId });
 
+    //Query data object 
+    const requestToPay_form_data = {
+      fname,
+      lname,
+      totalAmount,
+      number,
+      transactionId
+    }
+    const form_data_stringified = JSON.stringify(requestToPay_form_data)
+
+    //Encrypt transaction data 
+    const encrypted_form_data = cryptr.encrypt(form_data_stringified)
+
+    //Store encrypted transactioId in the localStorage
+    res.cookie('transaction_data', encrypted_form_data, {expire : new Date() + 9999}) //In 2h time
+
     //Redirect to /success
-    res.redirect(`/success/${transactionId}`) 
+    res.redirect(`/process/${encrypted_form_data}`) 
   })
   .catch(error => {
     console.log(error);
@@ -94,17 +93,17 @@ const Pay = asyncHandler( async(req, res)=>
 
 
 
-//PAYMENT STATUS @ /process
+//PAYMENT STATUS /success
 //@ Private access 
 
 const Process = asyncHandler( async(req, res)=>
 {
-  res.render('process')
+  //Get transaction_data obj from req
+  const transaction_details = req.transaction_data
   
-	//Redirect to Success/Failure depending on the T. status result 
-  //res.redirect(`/sucess/${encrypted_form_data}`)
+  //Render to the template with the needed obj
+  res.render('process')
 })
-
 
 
 
@@ -116,18 +115,11 @@ const Process = asyncHandler( async(req, res)=>
 
 const Success = asyncHandler( async(req, res)=>
 {
- 
-  //Get token from the request object 
-  const token = req.header('auth')
-  console.log(token)
+  //Get transaction_data obj from req
+  const transaction_details = req.transaction_data
 
-  //Get JWT payload object
-  jwt.verify(token, process.env.SECRET_KEY, (err, decoded)=>{
-    //Authenticate before rendering the page
-   
-    //res.render('success')
-  })
-
+  //Render to the template with the needed obj
+  res.render('success', {transaction_details})
 })
 
 

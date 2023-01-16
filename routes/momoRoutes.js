@@ -7,9 +7,9 @@ const protect = require('../middlewares/protect')
 router
 .get('/', Home)
 .get('/pay', ReqToPay)
-.get('/success/:id', protect, Success)
+.get('/success/:data', protect, Success)
+.get('/process/:data', protect, Process)
 .get('/failure', Failure)
-.get('/processing', Process)
 
 
 //Post routes
