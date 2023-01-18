@@ -19,7 +19,7 @@ const collections = Collections({
 })
 
 
-//REQUEST TO PAY @ /
+//HOME  @ / [GET]
 //@ Public access 
 
 const Home = asyncHandler( async(req, res)=>
@@ -30,18 +30,18 @@ const Home = asyncHandler( async(req, res)=>
 })
 
 
-//REQUEST TO PAY @ /pay
+//REQUEST TO PAY @ /pay [GET]
 //@ Public access 
 
 const ReqToPay = asyncHandler( async(req, res)=>
 {
-	//
+	//JUST RENDER
   res.render('reqToPay')
   
 })
 
 
-//REQUEST TO PAY @ /pay
+//REQUEST TO PAY @ /pay [POST]
 //@ Private access 
 
 const Pay = asyncHandler( async(req, res)=>
@@ -93,7 +93,7 @@ const Pay = asyncHandler( async(req, res)=>
 
 
 
-//PAYMENT STATUS /success
+//PAYMENT STATUS /process [GET]
 //@ Private access 
 
 const Process = asyncHandler( async(req, res)=>
@@ -102,6 +102,9 @@ const Process = asyncHandler( async(req, res)=>
   const transaction_details = req.transaction_data
   const transactionID = transaction_details.transactionId
 
+  //Encrypt transaction data 
+  const encrypted_form_data = cryptr.encrypt(JSON.stringify(transaction_details))
+
   //Get transaction status and account balance 
   collections.getTransaction(transactionID)
   .then(accountBalance =>{
@@ -109,9 +112,13 @@ const Process = asyncHandler( async(req, res)=>
     console.log({ accountBalance })
 
     //Get transaction status
-    const transaction_status = accountBalance.status;
+    const transaction_status = accountBalance.status
+    
+    //Redirect to 404 if url params is != encrypted_form_data
+    if(req.params.data !== encrypted_form_data )
+      res.status(404).redirect('/404') //User trynna force access to this route
 
-     //Render to the template with the needed obj
+    //Render to the template with the needed obj
     res.render('process', {transactionID, transaction_status})
   })
   .catch(e =>{
@@ -125,7 +132,7 @@ const Process = asyncHandler( async(req, res)=>
 
 
 
-//PAYMENT STATUS /success
+//PAYMENT STATUS /success [GET]
 //@ Private access 
 
 const Success = asyncHandler( async(req, res)=>
@@ -139,7 +146,7 @@ const Success = asyncHandler( async(req, res)=>
 
 
 
-//PAYMENT STATUS @ /failure
+//PAYMENT STATUS @ /failure [GET]
 //@ Private access 
 
 const Failure = asyncHandler( async(req, res)=>

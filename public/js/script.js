@@ -19,18 +19,17 @@ $(document).ready(function()
 
         //Redirect to success if SUCCESS
         window.location = `/success/${transactionID}` 
-
-        //ClearTimeout
-        clearF()
     }
 
   //SetTimout and redirect to success/Failure
-  const timeOut = setTimeout(transaction_processing, 5000) //Process for 5s before redirecting
+  const timeOut = setTimeout(transaction_processing, 8000) //Process for 5s before redirecting
 
-  //ClearTimeOut Function 
-  const clearF = () => {
-    clearTimeout(timeOut);
+  //ClearTimeOut on all routes except /process
+  const currentUrl = window.location.href
+  if(currentUrl.includes('process') === false){
+    clearTimeout(timeOut)
   }
+
     //res.redirect(`/success/${transaction_details.transactionId}`)
 
     //Redirect to success
