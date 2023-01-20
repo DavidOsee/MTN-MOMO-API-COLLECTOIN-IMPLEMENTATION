@@ -2,6 +2,7 @@
 const express = require('express')
 const router = express.Router()
 const {Home, ReqToPay, Pay, Process, Success, Failure} = require('../controllers/momoController')
+const sendEmail = require('../controllers/emailController')
 const protected = require('../middlewares/protect')
 //
 router
@@ -15,6 +16,7 @@ router
 //Post routes
 router
 .post('/pay', Pay)
+.post('/sendEmail', sendEmail)
 
 
 //Export to server 

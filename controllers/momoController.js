@@ -27,6 +27,7 @@ const Home = asyncHandler( async(req, res)=>
 	//
   res.render('home')
   
+  //Delete the alert 
 })
 
 
@@ -50,7 +51,7 @@ const Pay = asyncHandler( async(req, res)=>
   const { fname, lname, email, address, country, city, number, totalAmount} = req.body; 
 
 	//Request to pay 
-  collections
+  await collections
   .requestToPay({
     amount: totalAmount,
     currency: "EUR",
@@ -93,7 +94,7 @@ const Pay = asyncHandler( async(req, res)=>
 
 
 
-//PAYMENT STATUS /process [GET]
+//PAYMENT PROCESS /process [GET]
 //@ Private access 
 
 const Process = asyncHandler( async(req, res)=>
@@ -106,7 +107,7 @@ const Process = asyncHandler( async(req, res)=>
   const encrypted_form_data = cryptr.encrypt(JSON.stringify(transaction_details))
 
   //Get transaction status and account balance 
-  collections.getTransaction(transactionID)
+  await collections.getTransaction(transactionID)
   .then(accountBalance =>{
     //Get account balance 
     console.log({ accountBalance })

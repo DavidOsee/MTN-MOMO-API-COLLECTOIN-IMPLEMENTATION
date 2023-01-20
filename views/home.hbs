@@ -1,4 +1,18 @@
 <main>
+
+  {{!-- Bootstrap alert icons --}}
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="check-circle-fill" viewBox="0 0 16 16">
+      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+    </symbol>
+    <symbol id="info-fill" viewBox="0 0 16 16">
+      <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+    </symbol>
+    <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    </symbol>
+  </svg>
+
   <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
     <div class="col-md-5 p-lg-5 mx-auto my-5">
         <a href="https://momodeveloper.mtn.com/"><img src="https://play-lh.googleusercontent.com/rqGzKfvfgLEOzap1p7HLk_S3ZTgLqyvNCV-zo0URAcu5ywmWeR0zRi6SomHr2b80gg=w240-h480-rw" alt="MTN MOMO Logo"></a>
@@ -11,7 +25,7 @@
     <div class="product-device shadow-sm d-none d-lg-block"></div>
     <div class="product-device product-device-2 shadow-sm d-none d-lg-block"></div>
   </div>
-
+ 
   <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
     <div class="text-bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 overflow-hidden">
       <div class="my-3 py-3 text-center">
@@ -31,19 +45,28 @@
     </div>
     <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 overflow-hidden">
       <div class="my-3 p-3">
+        
         <h2 class="display-5 text-center">Drop a feedback</h2>
         <p class="lead text-center">I do read my mails <span style="font-size:18px">&#128513;</span></p>
         <br>
-        <form action="/" method="POST">
+         <div id="success_alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+          <strong>That was a good one!</strong> I appreciate your time.
+          {{!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
+        </div>
+        <div id="warning_alert" class="alert alert-warning alert-dismissible fade show d-none" role="alert">
+          <span id="warning_text"></span>
+          {{!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
+        </div>
+        <form id="sendMailForm">
           <div class="form-group mb">
             <label for="exampleFormControlInput1" class="mb-label">Your Email address</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            <input name="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
           </div>
           <div class="form-group">
-            <label for="exampleFormControlTextarea1" class="mb-label">Your valuable comment</label>
-            <textarea placeholder="Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content." class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <label for="exampleFormControlTextarea1" class="mb-label">Your valuable comment in 300 characters</label>
+            <textarea name="feedback" placeholder="Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content." class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
           </div><br>
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Send</button>
+          <button id="sendMailBtn" class="btn btn-outline-secondary" type="submit" id="button-addon2">Send</button>
         </form>
       </div>
       {{!-- <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div> --}}
