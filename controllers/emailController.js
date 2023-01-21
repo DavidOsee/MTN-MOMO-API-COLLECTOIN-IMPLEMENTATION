@@ -16,7 +16,7 @@ let transporter = nodemailer.createTransport({
     tls:{
       rejectUnauthorized:false
     }
-});
+})
 
 
 
@@ -25,7 +25,7 @@ let transporter = nodemailer.createTransport({
 const sendEmail = asyncHandler(async(req, res)=>{
 
     //Alert msg to display on /HOME
-    const alert_msg = "Something went wrong. Kindly refresh the page and try again!"
+    //const alert_msg = ""
 
     //Get form data
     const {email, feedback} = req.body
@@ -41,15 +41,18 @@ const sendEmail = asyncHandler(async(req, res)=>{
 
     // send mail with defined transport object
     transporter.sendMail(mailOptions, (error, info) => {
-        if (error) 
-            return console.log(error);
-        
+        if (error){
+            //console.log(error.responseCode)
+            //console.log(error)
+            res.send(error)
+            //res.render('home', {email_error}) 
+        }
+        else{
+            res.send('success')
+        }
         //console.log('Message sent: %s', info.messageId);   
-        //console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-
-        //Return data to the view 
-        res.render('home')
-    });
+        //console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));  
+    })
 })
 
 

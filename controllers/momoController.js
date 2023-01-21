@@ -48,10 +48,10 @@ const ReqToPay = asyncHandler( async(req, res)=>
 const Pay = asyncHandler( async(req, res)=>
 {
   //Request body variables 
-  const { fname, lname, email, address, country, city, number, totalAmount} = req.body; 
+  const { fn, ln, number, totalAmount} = req.body; 
 
 	//Request to pay 
-  await collections
+  collections
   .requestToPay({
     amount: totalAmount,
     currency: "EUR",
@@ -69,8 +69,8 @@ const Pay = asyncHandler( async(req, res)=>
 
     //Query data object 
     const requestToPay_form_data = {
-      fname,
-      lname,
+      fn,
+      ln,
       totalAmount,
       number,
       transactionId
@@ -81,7 +81,7 @@ const Pay = asyncHandler( async(req, res)=>
     const encrypted_form_data = cryptr.encrypt(form_data_stringified)
 
     //Store encrypted transactioId in the localStorage
-    res.cookie('transaction_data', encrypted_form_data, {expire : new Date() + 7200}) 
+    //res.cookie('transaction_data', encrypted_form_data, {expire : new Date() + 7200}) 
 
     //Redirect to /success
     res.redirect(`/process/${encrypted_form_data}`) 
@@ -107,7 +107,7 @@ const Process = asyncHandler( async(req, res)=>
   const encrypted_form_data = cryptr.encrypt(JSON.stringify(transaction_details))
 
   //Get transaction status and account balance 
-  await collections.getTransaction(transactionID)
+  collections.getTransaction(transactionID)
   .then(accountBalance =>{
     //Get account balance 
     console.log({ accountBalance })

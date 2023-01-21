@@ -13,6 +13,7 @@ $(document).ready(function()
   //Get Bootstrap alerts
   const warning = $('#warning_alert')
   const success = $('#success_alert')
+  const loading = $('#loading')
 
   //Email validation function 
   function IsEmail(email) 
@@ -33,10 +34,15 @@ $(document).ready(function()
   //ON FORM SUBMISSION 
   $('#sendMailBtn').on('click', (e)=>{
     e.preventDefault() //Prevent redirection
+    
+    //XSS
+    const email = $('input[name=email]').val().replace(/<[^>]+>/g, '')
+    const feedback = $('[name=feedback]').val().replace(/<[^>]+>/g, '')
+
     //Get Form data
     const feedback_form = {
-      email : $('input[name=email]').val(),
-      feedback :  $('[name=feedback]').val()
+      email,
+      feedback
     }
 
     //Validate empty fields submitted
@@ -60,7 +66,7 @@ $(document).ready(function()
       
       //Update warnig message
       $('#warning_text').text('Please enter a correct Email address')
-
+      //
       return false //Stop the execution 
     }
 
@@ -77,30 +83,118 @@ $(document).ready(function()
 
     //All good >> Hide Warning and Danger ALERTS 
     warning.addClass('d-none');
+    //Remove loading
+    loading.removeClass('d-none')
 
     $.ajax({
       url: '/sendEmail',
       type: "POST",
       data: feedback_form,
       success: function (data) {
-        //Display Success ALERT 
-        success.removeClass('d-none')
+        if (data == 'success'){
+          //Remove loading
+          loading.addClass('d-none')
 
-        //Reset the form 
-        $('form#sendMailForm').trigger('reset')
+          //Display Success ALERT 
+          success.removeClass('d-none')
 
-        //Delay and hide the send btn
-        $('#sendMailBtn').delay(1000).hide()
+          //Reset the form 
+          $('form#sendMailForm').trigger('reset')
 
-        console.log(data)
+          //Delay and hide the send btn
+          $('#sendMailBtn').hide()
+
+          //console.log(data)
+        }
+        else{
+          //Remove loading
+          loading.addClass('d-none')
+
+          alert("Really doesn't look like an email address. Please refresh the page and try again!")
+        }
+      },
+      error: function (xhr, exception) {
+        //
+        alert("Really doesn't look like an email address. Please refresh the page and try again!")
+        console.log(exception)
+      }
+    })
+
+  }) 
+  //END OF HOME
+
+
+  // --/PAY
+
+   //Get the alert
+   const pay_alert = $('#pay_alert')
+   const alertText = $('#pay_alert_text')
+
+  //Form validation before submission 
+  $('#checkOutBtn').on('click', (e)=>
+  {
+    e.preventDefault()
+
+    //Get Form data
+    const form = {
+      fn : $('[name=fname]').val(),
+      ln :  $('[name=lname]').val(),
+      number : $('[name=number]').val(),
+      totalAmount : parseInt($('#totalAmount').text()) 
+    }
+    //Empty form validation 
+    if(form.number === "" || form.fn === "" || form.ln === "")
+    {
+      //Display alert
+      pay_alert.removeClass('d-none')
+      
+      //Update warnig message
+      alertText.text("Please make sure to fill all the required fields")
+      //
+      return false
+    }
+
+    //Validate input maxLength
+    if(form.fn > 20 || form.ln > 20)//14 digits 00242 06 600 60 60
+    {
+      //Display alert
+      pay_alert.removeClass('d-none')
+      
+      //Update warnig message
+      alertText.text('Kindly set input maxlengths back to their original values')
+      //
+      return false
+    }
+
+    //Validate phone number 
+    if(isNaN(form.number) === true || form.number.length >14) //If text entered rather than number
+    {
+      //Display alert
+      pay_alert.removeClass('d-none')
+            
+      //Update warnig message
+      alertText.text("Hey ! That doesn't look like a phone number")
+      //
+      return false
+    }
+
+    //All good >> Hide Warning alert and submit the FORM
+    pay_alert.addClass('d-none');
+
+    $.ajax({
+      url: '/pay',
+      type: "POST",
+      data: form,
+      success: function (data) {
+        console.log("Success")
       },
       error: function (xhr, exception) {
         console.log(exception)
       }
     })
 
-  }) 
-
+  })
+  //END OF /PAY
  
 
   //res.redirect(`/success/${transaction_details.transactionId}`)

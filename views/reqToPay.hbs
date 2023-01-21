@@ -6,6 +6,11 @@
     
     <h2>CHECKOUT FORM</h2>
     <p class="lead">Sample page for testing the Collection Widget's <b>RequestToPay</b> method</p>
+     <div id="pay_alert" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+          <span id="pay_alert_text"></span>
+          {{!-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
+      </div>
+
  </div>
 
 
@@ -67,18 +72,18 @@
     </div>
     <div class="col-md-8 order-md-1">
       <h4 class="mb-3">Billing address</h4>
-      <form class="needs-validation" method="POST" action="/pay">
+      <form class="needs-validation" method="POST">
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="firstName">First name</label>
-            <input type="text" name="fname" class="form-control" id="firstName" placeholder="" value="" required>
+            <label for="firstName">First name*</label>
+            <input maxlength="20" type="text" name="fname" class="form-control" id="firstName" placeholder="" value="" required>
             <div class="invalid-feedback">
               Valid first name is required.
             </div>
           </div>
           <div class="col-md-6 mb-3">
-            <label for="lastName">Last name</label>
-            <input type="text" class="form-control" id="lastName" placeholder="" name="lname" value="" required>
+            <label for="lastName">Last name*</label>
+            <input maxlength="20" type="text" class="form-control" id="lastName" placeholder="" name="lname" value="" required>
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
@@ -104,7 +109,6 @@
           <div class="col-md-5 mb-3">
             <label for="country">Country</label>
             <select name="country" class="form-select" aria-label=".form-select example" id="country" required>
-              <option value="">Choose...</option>
               <option selected>Republic of Congo</option>
             </select>
             <div class="invalid-feedback">
@@ -114,7 +118,6 @@
           <div class="col-md-4 mb-3">
             <label for="state">City</label>
             <select name="city" class="form-select" aria-label=".form-select example" id="state" required>
-              <option value="">Choose...</option>
               <option selected>Brazzaville</option>
             </select>
             <div class="invalid-feedback">
@@ -122,9 +125,9 @@
             </div>
           </div>
           <div class="col-md-3 mb-3">
-            <label for="number">Phone number</span></label>
-            <input type="text" name="number" class="form-control" id="zip" placeholder="" required>
-            <input type="hidden" name="totalAmount" value="" id="inputTotalAmount" />
+            <label for="number">Phone number*</span></label>
+            <input  maxlength="14" type="tel" name="number" class="form-control" id="zip" placeholder="" required>
+            {{!-- <input type="hidden" name="totalAmount" value="" id="inputTotalAmount" /> --}}
             <div class="invalid-feedback">
               Phone number required.
             </div>
@@ -150,7 +153,7 @@
           </div>
         </div>
         <hr class="mb-4">
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+        <button id="checkOutBtn" class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
       </form>
     </div>
 </div><br><br>

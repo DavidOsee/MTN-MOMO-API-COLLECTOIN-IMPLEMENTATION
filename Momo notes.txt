@@ -15,15 +15,17 @@ npx momo-sandbox --host localhost --primary-key f62ffb63357d48e4a0056c36063a8c53
 #Authentication
 2- Check existance of form variables before displaying the Processing|Success/Failure page
 
+
+
+
 #Remainig functionalities
-0-Rename settime out to setinterval [Implement first] [UI]
 
-3-Work on Failing situations first, with the failure page
+-Work on Failing situations first, with the failure page
 
-4-Get User balance with a loading btn and result as (Balance : 12 $) [use async and await]
+-Get User balance with a loading btn and result as (Balance : 12 $) [use async and await]
 
-Hide Email in .env
+LAST 
+-Create License txt file copied from JWT github page
 
-4-Create License txt file copied from JWT github page
-
-*Display error if text entered in place of phone number
+-LATER 
+ *SendEmail controller >>  responseCode: 550 >> Display Alert on Ajax Error
