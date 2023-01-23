@@ -17,7 +17,8 @@
     <p  id="transactionID" class="d-none">{{transactionID}}</p>
     <p  id="number" class="d-none">{{user_number}}</p>
 
-    <p style="display: none;" id="trans_para">Transaction <b id="transaction_status">{{transaction_status}}</b></p>
+    <p style="display: none;" id="trans_para">Transaction - <b id="transaction_status">{{transaction_status}}</b></p>
+    
 </div>
 </div>
 
@@ -38,20 +39,20 @@
     function process() 
     {
         //Transaction FAILED 
-        if(number === '46733123450')
+        //if(number === '46733123450')
             //Redirect to failure
-            window.location = `/failure/transaction-failed/${transactionID}`;
+            //window.location = `/failure/transaction-failed/${transactionID}`;
         
         //Transaction REJECTED 
-        if(number === '46733123451')
+        //if(number === '46733123451')
             //Redirect to failure
-            window.location = `/failure/transaction-rejected/${transactionID}`;
+            //window.location = `/failure/transaction-rejected/${transactionID}`;
 
         
         //Transaction TIMEOUT 
-        if(number === '46733123452')
+        //if(number === '46733123452')
             //Redirect to failure
-            window.location = `/failure/transaction-timedout/${transactionID}`;
+            //window.location = `/failure/transaction-timed out/${transactionID}`;
 
 
         //If Pending
@@ -73,7 +74,7 @@
     } 
 
     //5s Time out
-    setTimeout(process, 6000)
+    setTimeout(process, 6000) //6s
 
     //res.redirect
 

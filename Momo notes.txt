@@ -19,10 +19,5 @@ npx momo-sandbox --host localhost --primary-key f62ffb63357d48e4a0056c36063a8c53
 
 
 #Remainig functionalities
-
--Work on Failing situations first, with the failure page
-
--Get User balance with a loading btn and result as (Balance : 12 $) [use async and await]
-
 LAST 
 -Create License txt file copied from JWT github page

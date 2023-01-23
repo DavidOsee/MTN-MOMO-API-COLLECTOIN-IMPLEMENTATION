@@ -61,7 +61,7 @@ const ReqToPay = asyncHandler( async(req, res)=>
   .requestToPay({
     amount: totalAmount,
     currency: "EUR",
-    externalId: "06 660 60 60", //Self Momo number 
+    externalId: "066606060", //Self Momo number 
     payer: {
       partyIdType: "MSISDN", //Mesage type notification/alert 
       partyId: number //Client phone number 
@@ -71,6 +71,7 @@ const ReqToPay = asyncHandler( async(req, res)=>
   })
   .then(transactionId => {
 
+    
     //Query data object 
     const requestToPay_form_data = {
       fname,
@@ -89,7 +90,7 @@ const ReqToPay = asyncHandler( async(req, res)=>
 
     //Set data in localstorage variable 
     localStorage.setItem('User_data', encrypted_form_data)
-
+    console.log('Process')
     //Redirect to /process
     res.redirect(`/process/${encrypted_form_data}`)
 
@@ -197,8 +198,25 @@ const Success = asyncHandler( async(req, res)=>
 
 const Failure = asyncHandler( async(req, res)=>
 {
+  //Get transaction details
+  const transactionID = req.transaction_data.transactionId
+
+  //Array of possible transsaction statuses 
+  const statuses = ["transaction-failed", "transaction-rejected", "transaction-timed out"]
+
+  //Redirect to 404 if url params is != encrypted_form_data
+  if(!req.params.status || !req.params.id || statuses.includes(req.params.status)=== false) //User trynna force access to this route
+  {
+    res.status(404).redirect('/404') //User trynna force access to this route
+  }
+  
+  //Get transaction params
+  const status = req.params.status.split('-')[1]
+
 	//Render the view
-  res.render('failure')
+  res.render('failure', {transactionID, status})
+
+  // failure/transaction-rejected/18590136-60a2-4958-bf13-a6b0ffc08b5d
   
 })
 

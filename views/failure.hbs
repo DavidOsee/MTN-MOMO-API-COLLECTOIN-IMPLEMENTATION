@@ -1,7 +1,7 @@
-<div class="p-5 bg-warning text-white">
-    <h1>Sorry dear {{transaction_details.fname }} {{transaction_details.lname}} !</h1>
+<div class="p-5 bg-danger text-white">
+    <h1>Sorry dear!</h1>
     <p class="fs-3">Your payment was not successful due to the below reason.</p>
-    <p class="fs-5">Transaction {{status}}</p>
+    <p class="fs-5">The transaction No.- {{transactionID}} got <b>{{status}}</b>.</p>
     {{!-- <p class="fs-5">Transaction Id - <b>{{transaction_details.transactionId}}</b></p>
     <p class="fs-5">Phone number - <b>{{transaction_details.number}}</b></p>
     <p class="fs-4">Amount paid - <b>{{transaction_details.totalAmount}} $ </b></p><br /> --}}
@@ -21,6 +21,6 @@
             </div>
         </div>
     </div><br><br> --}}
-    <h5>Thanks for using our services</h5><br><br>
-    <p><a class="text-white" href="/">HOME&nbsp;</a>&nbsp;|&nbsp;<a class="text-white" href="/pay">&nbsp;PAY AGAIN</a></p>
+    {{!-- <h5>Thanks for using our services</h5> --}}<br><br>
+    <p><a class="text-white" href="/">HOME&nbsp;</a>&nbsp;|&nbsp;<a class="text-white" href="/pay">&nbsp;TRY AGAIN</a></p>
 </div>

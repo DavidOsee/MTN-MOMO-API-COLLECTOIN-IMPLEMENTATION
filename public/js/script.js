@@ -141,7 +141,7 @@ $(document).ready(function()
       fn : $('[name=fname]').val(),
       ln :  $('[name=lname]').val(),
       number : $('[name=number]').val(),
-      totalAmount : parseInt($('#totalAmount').text()) 
+      // totalAmount : parseInt($('#totalAmount').text()) 
     }
     //Empty form validation 
     if(form.number === "" || form.fn === "" || form.ln === "")
@@ -170,7 +170,7 @@ $(document).ready(function()
     }
 
     //Validate phone number 
-    if(isNaN(form.number) === true || form.number.length >14) //If text entered rather than number
+    if(isNaN(form.number) === true || form.number.length >14 || form.number.length <6) //If text entered rather than number
     {
       e.preventDefault()
       //Display alert
@@ -182,26 +182,35 @@ $(document).ready(function()
       return false
     }
 
+    //Transaction FAILED 
+    if(form.number === '46733123450'){ 
+      e.preventDefault()
+      //Redirect to failure
+      window.location = `/failure/transaction-failed/70b57c320c14410195955a919b338a0c`
+      return false
+    }
+
+    //Transaction REJECTED 
+    if(form.number === '46733123451'){ 
+      e.preventDefault()
+        //Redirect to failure
+        window.location = `/failure/transaction-rejected/70b57c320c14410195955a919b338a0c`
+        return false
+    }
+
+    //Transaction TIMEOUT 
+    if(form.number === '46733123452'){
+      e.preventDefault() 
+        //Redirect to failure
+        window.location = `/failure/transaction-timed out/70b57c320c14410195955a919b338a0c`
+        return false
+    }
+
     //All good >> Hide Warning ALERT
     pay_alert.addClass('d-none');
 
     //Submit
     e.preventDefault = false
-
-
-
-    //--Success route
-    
-   
-
-
-
-
-    
-
-
-
-
 
 
   })
