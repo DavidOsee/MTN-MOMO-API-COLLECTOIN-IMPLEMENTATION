@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +21,6 @@
     "mtn-momo": "^2.0.0",
     "node-localstorage": "^2.2.1",
     "nodemailer": "^6.9.0",
-    "nodemon": "^2.0.20",
     "uuid": "^9.0.0"
   }
 }
