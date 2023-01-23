@@ -15,7 +15,7 @@ router
 
 //Post routes
 router
-.post('/requestToPay', ReqToPay)
+.post('/reqToPay', ReqToPay)
 .post('/sendEmail', sendEmail)
 
 

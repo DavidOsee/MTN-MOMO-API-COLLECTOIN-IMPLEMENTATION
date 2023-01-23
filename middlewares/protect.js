@@ -9,6 +9,7 @@ localStorage = new LocalStorage('./scratch');
 //
 const protect = (req, res, next)=>
 {
+    console.log('Protected');
     //Check for the existance of User_data localstorage variable
     if(!localStorage.getItem('User_data')){
 

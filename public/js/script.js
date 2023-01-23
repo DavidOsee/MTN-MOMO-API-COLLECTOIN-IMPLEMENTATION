@@ -203,6 +203,57 @@ $(document).ready(function()
     //   }
     // })
 
+
+    //Process page 
+
+    // if(window.location.pathname.search('process') == 1)
+    // {
+
+    //  console.log('Process route')
+    //   //
+    //   const status = $('p#transaction_status').text()
+
+    //   //Process function 
+    //   const process = ()=>
+    //   {
+    //       //If Pending
+    //       if(status == 'pending'){
+
+    //           //Display pending status text 
+    //           $('p#transaction_status').removeClass('d-one') 
+
+    //           //Redirect to failure
+    //           window.location = `/success/${status}`;
+    //       }
+      
+    //       //If Successful 
+    //       if(status == 'successful'){
+
+    //           //Display pending status text 
+    //           $('p#transaction_status').removeClass('d-one').addClass('d-none')
+    //           console.log(status)
+    //           //Redirect to success
+    //           window.location = `/success/${status}`
+    //       }
+    //   } 
+    //   //Set time out
+    //   setTimeout(process,1000)
+
+    // }
+
+    
+
+
+
+
+    //Clear TimeOut 
+    // if(window.location.pathname.search('process') == -1){
+
+    //     clearTimeout(timeOut)
+    //     console.log("ClearTimeOut from /process")
+    // } //When on a diff. route
+
+
   })
   //END OF /PAY
     

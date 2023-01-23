@@ -70,8 +70,6 @@ const ReqToPay = asyncHandler( async(req, res)=>
     payeeNote: "Thanks for using our services"
   })
   .then(transactionId => {
-    
-    console.log({ transactionId });
 
     //Query data object 
     const requestToPay_form_data = {
@@ -112,24 +110,26 @@ const ReqToPay = asyncHandler( async(req, res)=>
 const Process = asyncHandler( async(req, res)=>
 {
   //Redirect to 404 if url params is != encrypted_form_data
-  if(req.params.data != localStorage.getItem('User_data') )
+  if(req.params.data != localStorage.getItem('User_data'))
       res.status(404).redirect('/404') //User trynna force access to this route
 
+  console.log('Process')
   //Get transaction_data obj from req
   const transaction_details = req.transaction_data
   const transactionID = transaction_details.transactionId
 
+  //Get user phone number 
+  const user_number = transaction_details.number
+
   //Get transaction status and account balance 
   collections.getTransaction(transactionID)
-  .then(accountBalance =>{
-    //Get account balance 
-    //console.log({ accountBalance })
-
+  .then(transaction =>{
+   
     //Get transaction status
-    const transaction_status = accountBalance.status
+    const transaction_status = transaction.status
 
     //Render to the template with the needed obj
-    res.render('process', {transactionID, transaction_status})
+    res.render('process', {transactionID, transaction_status, user_number})
   })
   .catch(e =>{
     console.log(e.message);

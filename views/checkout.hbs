@@ -72,7 +72,7 @@
     </div>
     <div class="col-md-8 order-md-1">
       <h4 class="mb-3">Billing address</h4>
-      <form id="reqToPayForm" method="POST" action="/requestToPay">
+      <form id="reqToPayForm" method="POST" action="/reqToPay">
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">First name*</label>
@@ -157,3 +157,15 @@
       </form>
     </div>
 </div><br><br>
+
+{{!-- Total amount script --}}
+<script>
+		//Get Total amount from Cart details [/reqToPay]
+		const totalAmount = document.getElementById('totalAmount').innerText
+
+		//Get hidden input
+		let inputTotalAmount = document.getElementById('inputTotalAmount')
+
+		//Set total amount to hidden input
+		inputTotalAmount.value = totalAmount
+</script>
