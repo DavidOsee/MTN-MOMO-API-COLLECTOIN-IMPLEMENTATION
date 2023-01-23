@@ -5,21 +5,50 @@
     <p class="fs-5">Phone number - <b>{{transaction_details.number}}</b></p>
     <p class="fs-4">Amount paid - <b>{{transaction_details.totalAmount}} $ </b></p><br />
     {{!-- <button class="btn btn-info">Show my balance</button><br /><br /> --}}
-    <button class="btn btn-info" id="balance-btn">
+    <button class="btn btn-info btn-lg" id="balance-btn">
         Show balance
+    </button>
+    <button class="btn btn-info d-none btn-lg" id="LoadingBtn" type="button">
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+        Loading...
+    </button>
+    <button class="btn btn-info d-none btn-lg" id="balanceBtn" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Refresh the page and display a different amount">
+        <b>{{balance}} $</b>
     </button>
         {{!-- <button class="btn btn-info" type="button" disabled>
             <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
             Loading...
         </button> --}}
 
-    <div class="collapse d-none" id="collapseExample">
-        <div class="card">
-            <div class="card-body">
-                <b class="text-black"><span>{{balance}}</span> $</b>
-            </div>
-        </div>
-    </div><br><br>
-    <h5>Thanks for using our services</h5><br><br>
+    <br><br><h5>Thanks for using our services</h5><br><br>
     <p><a class="text-white" href="/">HOME&nbsp;</a>&nbsp;|&nbsp;<a class="text-white" href="/pay">&nbsp;PAY AGAIN</a></p>
 </div>
+
+
+<script type="text/javascript">
+
+    //Enable popovers
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+
+
+    //Get balance btn
+    $('#balance-btn').on('click', ()=>{
+      
+      //Hide $this
+      $('#balance-btn').addClass('d-none')
+
+      //Show Loading Btn
+      $('#LoadingBtn').removeClass('d-none')
+
+      //Time out and display the balance 
+      setTimeout(()=>{
+        //Hide loading 
+        $('#LoadingBtn').addClass('d-none')
+
+        //Display balance 
+        $('#balanceBtn').removeClass('d-none')
+      }, 2000)
+    })
+
+</script>

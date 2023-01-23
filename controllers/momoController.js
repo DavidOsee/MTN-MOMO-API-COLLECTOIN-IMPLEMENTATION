@@ -61,7 +61,7 @@ const ReqToPay = asyncHandler( async(req, res)=>
   .requestToPay({
     amount: totalAmount,
     currency: "EUR",
-    externalId: "123456", //Random digits 
+    externalId: "06 660 60 60", //Self Momo number 
     payer: {
       partyIdType: "MSISDN", //Mesage type notification/alert 
       partyId: number //Client phone number 
@@ -120,6 +120,7 @@ const Process = asyncHandler( async(req, res)=>
 
   //Get user phone number 
   const user_number = transaction_details.number
+  console.log(user_number)
 
   //Get transaction status and account balance 
   collections.getTransaction(transactionID)
@@ -147,11 +148,46 @@ const Process = asyncHandler( async(req, res)=>
 
 const Success = asyncHandler( async(req, res)=>
 {
-  //Get transaction_data obj from req
+  //Get transaction details
   const transaction_details = req.transaction_data
+  const transactionID = transaction_details.transactionId
 
-  //Render to the template with the needed obj
-  res.render('success', {transaction_details})
+  //Initiate balance 
+  let balance
+
+  //Get User balance 
+  collections.getTransaction(transactionID)
+  .then(transaction => {
+
+    //Get financialTransactionId
+    //const financialTransactionId = transaction.financialTransactionId
+    
+    // Get account balance
+    return collections.getBalance(transactionID);
+  })
+  .then(accountBalance => {
+    
+    //Show balance only when the result is different from error like "Access to target environment is forbidden."
+    //if(!accountBalance) //If balance is not a number 
+     // console.log("Error " + balance) //Set balance to 0
+
+    //Get accout balance 
+    balance = accountBalance.availableBalance
+
+    console.log(balance)
+
+    //Render to the template with the needed obj
+    res.render('success', {transaction_details, balance})
+  })
+  .catch(e =>{
+    //Set balance to 0 if internal errors happen  
+    balance = 0 
+
+    //Still render the view with balance 0
+    res.render('success', {transaction_details, balance})
+
+    console.log("error : " + e.message);
+  })
 })
 
 
@@ -161,7 +197,8 @@ const Success = asyncHandler( async(req, res)=>
 
 const Failure = asyncHandler( async(req, res)=>
 {
-	//
+	//Render the view
+  res.render('failure')
   
 })
 

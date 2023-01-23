@@ -188,70 +188,20 @@ $(document).ready(function()
     //Submit
     e.preventDefault = false
 
-    // $.ajax({
-    //   url: '/requestToPay',
-    //   type: "POST",
-    //   data: form,
-    //   success: function (User_data) {
-    //     //Redirect to /process 
-    //     window.location.href=`/process/${User_data}`
-    //   },
-    //   error: function (xhr, exception) {
-    //     //Alert
-    //     alert("Somthing went wrong. Please try again!")
-    //     console.log(exception)
-    //   }
-    // })
 
 
-    //Process page 
+    //--Success route
+    
+   
 
-    // if(window.location.pathname.search('process') == 1)
-    // {
 
-    //  console.log('Process route')
-    //   //
-    //   const status = $('p#transaction_status').text()
 
-    //   //Process function 
-    //   const process = ()=>
-    //   {
-    //       //If Pending
-    //       if(status == 'pending'){
-
-    //           //Display pending status text 
-    //           $('p#transaction_status').removeClass('d-one') 
-
-    //           //Redirect to failure
-    //           window.location = `/success/${status}`;
-    //       }
-      
-    //       //If Successful 
-    //       if(status == 'successful'){
-
-    //           //Display pending status text 
-    //           $('p#transaction_status').removeClass('d-one').addClass('d-none')
-    //           console.log(status)
-    //           //Redirect to success
-    //           window.location = `/success/${status}`
-    //       }
-    //   } 
-    //   //Set time out
-    //   setTimeout(process,1000)
-
-    // }
 
     
 
 
 
 
-    //Clear TimeOut 
-    // if(window.location.pathname.search('process') == -1){
-
-    //     clearTimeout(timeOut)
-    //     console.log("ClearTimeOut from /process")
-    // } //When on a diff. route
 
 
   })
