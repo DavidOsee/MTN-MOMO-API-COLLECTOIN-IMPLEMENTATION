@@ -29,7 +29,7 @@ $(document).ready(function()
   }
 
   //Limit text area number of char 
-  $('[name=feedback]').attr('maxlength', 300)
+  //$('[name=feedback]').attr('maxlength', 300)
 
   //ON FORM SUBMISSION 
   $('#sendMailBtn').on('click', (e)=>{
@@ -44,10 +44,10 @@ $(document).ready(function()
       email,
       feedback
     }
-
+    
     //Validate empty fields submitted
-    if(feedback_form.email =="" || feedback_form.feedback ==""){
-      //Update ALERT Ndanger to warning
+    if(email =="" || feedback ==""){
+      //Update ALERT danger to warning
       warning.removeClass('alert-danger').addClass('alert-warning')
 
       //Display warning alert 
@@ -60,7 +60,7 @@ $(document).ready(function()
     }
 
     //Validate email address 
-    if(IsEmail(feedback_form.email) != true){
+    if(IsEmail(email) === false){
       //Update ALERT warning to danger
       warning.removeClass('alert-warning').removeClass('d-none').addClass('alert-danger')
       
@@ -71,7 +71,7 @@ $(document).ready(function()
     }
 
     //Validate textarea maxlength 
-    if(feedback_form.feedback.length > 300){
+    if(feedback.length > 300){
       //Update ALERT warning to danger
       warning.removeClass('alert-warning').removeClass('d-none').addClass('alert-danger')
       
@@ -91,7 +91,7 @@ $(document).ready(function()
       type: "POST",
       data: feedback_form,
       success: function (data) {
-        if (data == 'success'){
+        if (data === 'success'){
           //Remove loading
           loading.addClass('d-none')
 
@@ -110,12 +110,15 @@ $(document).ready(function()
           //Remove loading
           loading.addClass('d-none')
 
-          alert("Really doesn't look like an email address. Please refresh the page and try again!")
+          alert("Seems like your email address is misspelt. Please check it out!")
         }
       },
       error: function (xhr, exception) {
-        //
-        alert("Really doesn't look like an email address. Please refresh the page and try again!")
+        //Remove loading
+        loading.addClass('d-none')
+
+        alert("Seems like your email address is misspelt. Please check it out!")
+
         console.log(exception)
       }
     })
@@ -131,10 +134,8 @@ $(document).ready(function()
    const alertText = $('#pay_alert_text')
 
   //Form validation before submission 
-  $('#checkOutBtn').on('click', (e)=>
+  $('#reqToPayForm').on('submit', (e)=>
   {
-    e.preventDefault()
-
     //Get Form data
     const form = {
       fn : $('[name=fname]').val(),
@@ -145,6 +146,7 @@ $(document).ready(function()
     //Empty form validation 
     if(form.number === "" || form.fn === "" || form.ln === "")
     {
+      e.preventDefault()
       //Display alert
       pay_alert.removeClass('d-none')
       
@@ -155,8 +157,9 @@ $(document).ready(function()
     }
 
     //Validate input maxLength
-    if(form.fn > 20 || form.ln > 20)//14 digits 00242 06 600 60 60
+    if(form.fn.length > 20 || form.ln.length > 20)//14 digits 00242 06 600 60 60
     {
+      e.preventDefault()
       //Display alert
       pay_alert.removeClass('d-none')
       
@@ -169,6 +172,7 @@ $(document).ready(function()
     //Validate phone number 
     if(isNaN(form.number) === true || form.number.length >14) //If text entered rather than number
     {
+      e.preventDefault()
       //Display alert
       pay_alert.removeClass('d-none')
             
@@ -178,30 +182,28 @@ $(document).ready(function()
       return false
     }
 
-    //All good >> Hide Warning alert and submit the FORM
+    //All good >> Hide Warning ALERT
     pay_alert.addClass('d-none');
 
-    $.ajax({
-      url: '/pay',
-      type: "POST",
-      data: form,
-      success: function (data) {
-        console.log("Success")
-      },
-      error: function (xhr, exception) {
-        console.log(exception)
-      }
-    })
+    //Submit
+    e.preventDefault = false
+
+    // $.ajax({
+    //   url: '/requestToPay',
+    //   type: "POST",
+    //   data: form,
+    //   success: function (User_data) {
+    //     //Redirect to /process 
+    //     window.location.href=`/process/${User_data}`
+    //   },
+    //   error: function (xhr, exception) {
+    //     //Alert
+    //     alert("Somthing went wrong. Please try again!")
+    //     console.log(exception)
+    //   }
+    // })
 
   })
   //END OF /PAY
- 
-
-  //res.redirect(`/success/${transaction_details.transactionId}`)
-
-  //Redirect to success
-  //res.redirect(`/failure/transaction-failed/${transaction_details.transactionId}`)
-  //Redirect to success
-  //res.redirect(`/failure/transaction-rejected/${transaction_details.transactionId}`)
     
 })

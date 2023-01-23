@@ -4,10 +4,10 @@
 </div>
 <h3 class="display-5 fw-bold">Processing</h3>
 
-<div class="d-flex">
+{{!-- <div class="d-flex">
     <h4 id="min" class="bg-dark">10 : </h4>
     <h4 id="sec" class="bg-dark">20</h4>
-</div>
+</div> --}}
 
 <div class="col-lg-6 mx-auto">
     <p class="lead mb-4">You will be notified by <b>SMS</b> or <b>MTN Mobile APP</b> to confirm the transaction. Kindly make the payment in order to complete the transaction.</p>
@@ -19,3 +19,16 @@
 <input type="hidden" value="{{transactionID}}"  id="transactionID"  />
 <input type="hidden" value="{{transaction_status}}"  id="transaction_status"  />
 
+{{!-- Redirect on setTimeOut --}}
+<script>
+    //Get transaction status
+
+    //Redirect to the right route 
+
+    //res.redirect(`/success/${transaction_details.transactionId}`)
+
+    //Redirect to success
+    //res.redirect(`/failure/transaction-failed/${transaction_details.transactionId}`)
+    //Redirect to success
+    //res.redirect(`/failure/transaction-rejected/${transaction_details.transactionId}`)
+</script>

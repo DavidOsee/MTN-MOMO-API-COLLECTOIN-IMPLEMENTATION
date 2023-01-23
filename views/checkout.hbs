@@ -72,7 +72,7 @@
     </div>
     <div class="col-md-8 order-md-1">
       <h4 class="mb-3">Billing address</h4>
-      <form class="needs-validation" method="POST">
+      <form id="reqToPayForm" method="POST" action="/requestToPay">
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">First name*</label>
@@ -127,7 +127,7 @@
           <div class="col-md-3 mb-3">
             <label for="number">Phone number*</span></label>
             <input  maxlength="14" type="tel" name="number" class="form-control" id="zip" placeholder="" required>
-            {{!-- <input type="hidden" name="totalAmount" value="" id="inputTotalAmount" /> --}}
+            <input type="hidden" name="totalAmount" value="" id="inputTotalAmount" />
             <div class="invalid-feedback">
               Phone number required.
             </div>
@@ -153,7 +153,7 @@
           </div>
         </div>
         <hr class="mb-4">
-        <button id="checkOutBtn" class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+        <input id="checkOutBtn" class="btn btn-primary btn-lg btn-block" type="submit" value="Continue to checkout" />
       </form>
     </div>
 </div><br><br>

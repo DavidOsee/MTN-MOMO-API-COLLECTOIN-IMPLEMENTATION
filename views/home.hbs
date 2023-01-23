@@ -52,7 +52,7 @@
         <div id="loading" class="d-flex d-none">
           <div class="spinner-grow text-primary text-center ms-6 d-flex" style="width: 3rem; height: 3rem;" role="status">
             {{!-- <span class="" style="padding-left: 10px !important;">Loading...</span> --}}
-          </div><p class="text-primary ps-8 mt-2">&nbsp; Loading...</p>
+          </div><p class="text-primary ps-8 mt-2">&nbsp; Sending...</p>
         </div>
         
         <div id="success_alert" class="alert alert-success alert-dismissible fade show d-none" role="alert">
@@ -71,7 +71,7 @@
           </div>
           <div class="form-group">
             <label for="exampleFormControlTextarea1" class="mb-label">Your valuable comment in 300 characters</label>
-            <textarea name="feedback" placeholder="Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content." class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea name="feedback" placeholder="Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content." class="form-control" id="exampleFormControlTextarea1" rows="3" maxlength="300"></textarea>
           </div><br>
           <button id="sendMailBtn" class="btn btn-outline-secondary" type="submit" id="button-addon2">Send</button>
         </form>

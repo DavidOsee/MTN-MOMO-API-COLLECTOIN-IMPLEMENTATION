@@ -1,12 +1,16 @@
 
 const Cryptr = require('cryptr')
 const cryptr = new Cryptr(process.env.SECRET_KEY);
+//Localstorage
+var LocalStorage = require('node-localstorage').LocalStorage;
+localStorage = new LocalStorage('./scratch');
+
 
 //
 const protect = (req, res, next)=>
 {
-    //Check for the existance of the cookie
-    if(!req.cookies.transaction_data){
+    //Check for the existance of User_data localstorage variable
+    if(!localStorage.getItem('User_data')){
 
          //Redirect to 404 page
          res.status(404)
@@ -14,7 +18,7 @@ const protect = (req, res, next)=>
     }
 
     //Decrypt transaction_data stored in a cookie
-    const decrypted_transaction_data = cryptr.decrypt(req.cookies.transaction_data)
+    const decrypted_transaction_data = cryptr.decrypt(localStorage.getItem('User_data'))
 
     //JSON parse transaction_data object and pass it into the req obj
     if(!req.transaction_data)

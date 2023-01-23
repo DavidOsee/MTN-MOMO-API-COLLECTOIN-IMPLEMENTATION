@@ -26,6 +26,3 @@ npx momo-sandbox --host localhost --primary-key f62ffb63357d48e4a0056c36063a8c53
 
 LAST 
 -Create License txt file copied from JWT github page
-
--LATER 
- *SendEmail controller >>  responseCode: 550 >> Display Alert on Ajax Error

@@ -28,8 +28,9 @@ const sendEmail = asyncHandler(async(req, res)=>{
     //const alert_msg = ""
 
     //Get form data
-    const {email, feedback} = req.body
+    const {email, feedback} = await req.body
     
+    console.log(email)
     
     // setup email data with unicode symbols
     let mailOptions = {
@@ -44,14 +45,14 @@ const sendEmail = asyncHandler(async(req, res)=>{
         if (error){
             //console.log(error.responseCode)
             //console.log(error)
-            res.send(error)
+            res.send('error')
             //res.render('home', {email_error}) 
         }
         else{
             res.send('success')
         }
-        //console.log('Message sent: %s', info.messageId);   
-        //console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));  
+        // console.log('Message sent: %s', info.messageId);   
+        // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));  
     })
 })
 

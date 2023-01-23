@@ -4,7 +4,13 @@ const uuid = require('uuid')
 const momo = require("mtn-momo")
 const url = require('url')
 const Cryptr = require('cryptr')
-const cryptr = new Cryptr(process.env.SECRET_KEY);
+const cryptr = new Cryptr(process.env.SECRET_KEY)
+
+//Localstorage
+var LocalStorage = require('node-localstorage').LocalStorage;
+localStorage = new LocalStorage('./scratch');
+
+
 
 
 //API CONFIG PARAMS
@@ -34,10 +40,10 @@ const Home = asyncHandler( async(req, res)=>
 //REQUEST TO PAY @ /pay [GET]
 //@ Public access 
 
-const ReqToPay = asyncHandler( async(req, res)=>
+const Pay = asyncHandler( async(req, res)=>
 {
 	//JUST RENDER
-  res.render('reqToPay')
+  res.render('checkout')
   
 })
 
@@ -45,10 +51,10 @@ const ReqToPay = asyncHandler( async(req, res)=>
 //REQUEST TO PAY @ /pay [POST]
 //@ Private access 
 
-const Pay = asyncHandler( async(req, res)=>
+const ReqToPay = asyncHandler( async(req, res)=>
 {
   //Request body variables 
-  const { fn, ln, number, totalAmount} = req.body; 
+  const { fname, lname, number, totalAmount} = req.body; 
 
 	//Request to pay 
   collections
@@ -69,8 +75,8 @@ const Pay = asyncHandler( async(req, res)=>
 
     //Query data object 
     const requestToPay_form_data = {
-      fn,
-      ln,
+      fname,
+      lname,
       totalAmount,
       number,
       transactionId
@@ -83,8 +89,14 @@ const Pay = asyncHandler( async(req, res)=>
     //Store encrypted transactioId in the localStorage
     //res.cookie('transaction_data', encrypted_form_data, {expire : new Date() + 7200}) 
 
-    //Redirect to /success
-    res.redirect(`/process/${encrypted_form_data}`) 
+    //Set data in localstorage variable 
+    localStorage.setItem('User_data', encrypted_form_data)
+
+    //Redirect to /process
+    res.redirect(`/process/${encrypted_form_data}`)
+
+    //Send User_data to the view
+    //res.send(encrypted_form_data) 
   })
   .catch(error => {
     console.log(error);
@@ -99,25 +111,22 @@ const Pay = asyncHandler( async(req, res)=>
 
 const Process = asyncHandler( async(req, res)=>
 {
+  //Redirect to 404 if url params is != encrypted_form_data
+  if(req.params.data != localStorage.getItem('User_data') )
+      res.status(404).redirect('/404') //User trynna force access to this route
+
   //Get transaction_data obj from req
   const transaction_details = req.transaction_data
   const transactionID = transaction_details.transactionId
-
-  //Encrypt transaction data 
-  const encrypted_form_data = cryptr.encrypt(JSON.stringify(transaction_details))
 
   //Get transaction status and account balance 
   collections.getTransaction(transactionID)
   .then(accountBalance =>{
     //Get account balance 
-    console.log({ accountBalance })
+    //console.log({ accountBalance })
 
     //Get transaction status
     const transaction_status = accountBalance.status
-    
-    //Redirect to 404 if url params is != encrypted_form_data
-    if(req.params.data !== encrypted_form_data )
-      res.status(404).redirect('/404') //User trynna force access to this route
 
     //Render to the template with the needed obj
     res.render('process', {transactionID, transaction_status})
