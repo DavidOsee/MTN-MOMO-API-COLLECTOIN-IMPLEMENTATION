@@ -173,6 +173,8 @@ $(document).ready(function()
     if(isNaN(form.number) === true || form.number.length >14 || form.number.length <6) //If text entered rather than number
     {
       e.preventDefault()
+      //Change input color [For mobile view]
+      $('[name=number]').css('background-color', '#ff9999	')
       //Display alert
       pay_alert.removeClass('d-none')
             
@@ -181,6 +183,7 @@ $(document).ready(function()
       //
       return false
     }
+
 
     //Transaction FAILED 
     if(form.number === '46733123450'){ 
@@ -215,5 +218,16 @@ $(document).ready(function()
 
   })
   //END OF /PAY
+
+
+  //Set Phone input bg back to normal 
+  $('[name=number]').on('change', ()=>{
+    //Validate phone number 
+    if(isNaN($(this).val()) === false || $(this).val() <=14 || $(this).val() >=6)
+    {
+      //Change input color [For mobile view]
+      $('[name=number]').css('background-color', '#fff')
+    }
+  })
     
 })
