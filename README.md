@@ -1,4 +1,4 @@
-# MTN-MOMO-API
+# MTN-MOMO-API (COLLECTION)
 Simple integration of the MTN Mobile Money API using Express, NODE JS, MTN-MOMO NPM and Handlebars view template engine. 
 
 [Try it out !](https://mtn-momo-api-implementation-production.up.railway.app/)
